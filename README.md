@@ -1,5 +1,6 @@
 # UnityClientServerReplication
 Unity with a basic client&lt;->server replication where the server is the authority.
+There is no support for server reconciliation, only client side. This is a *naive* approach to basic server authority, works well for maybe a 2 player game or something casual.
 
 1) Create a Unity project
 2) Create an empty game object called "Manager"
