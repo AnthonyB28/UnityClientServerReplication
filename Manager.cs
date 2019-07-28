@@ -182,18 +182,15 @@ public class Manager : MonoBehaviour
 
     private void ServerSendWorldState()
     {
-        if (m_Player1.transform.position != m_Player1PrevPosition)
-        {
-            m_Player1PrevPosition = m_Player1.transform.position;
-            byte[] buff = new byte[sizeof(float) * 3 + sizeof(ulong)];
-            Buffer.BlockCopy(BitConverter.GetBytes(m_Player1.transform.position.x), 0, buff, 0 * sizeof(float), sizeof(float));
-            Buffer.BlockCopy(BitConverter.GetBytes(m_Player1.transform.position.y), 0, buff, 1 * sizeof(float), sizeof(float));
-            Buffer.BlockCopy(BitConverter.GetBytes(m_Player1.transform.position.z), 0, buff, 2 * sizeof(float), sizeof(float));
-            Buffer.BlockCopy(BitConverter.GetBytes(m_ServerLastProcessedInput), 0, buff, 3 * sizeof(float), sizeof(ulong));
-            Binary bin = new Binary(NetworkManager.Instance.Networker.Time.Timestep, false, buff, Receivers.All, id,
-                false);
-            m_Server.Send(bin, false);
-        }
+        m_Player1PrevPosition = m_Player1.transform.position;
+        byte[] buff = new byte[sizeof(float) * 3 + sizeof(ulong)];
+        Buffer.BlockCopy(BitConverter.GetBytes(m_Player1.transform.position.x), 0, buff, 0 * sizeof(float), sizeof(float));
+        Buffer.BlockCopy(BitConverter.GetBytes(m_Player1.transform.position.y), 0, buff, 1 * sizeof(float), sizeof(float));
+        Buffer.BlockCopy(BitConverter.GetBytes(m_Player1.transform.position.z), 0, buff, 2 * sizeof(float), sizeof(float));
+        Buffer.BlockCopy(BitConverter.GetBytes(m_ServerLastProcessedInput), 0, buff, 3 * sizeof(float), sizeof(ulong));
+        Binary bin = new Binary(NetworkManager.Instance.Networker.Time.Timestep, false, buff, Receivers.All, id,
+            false);
+        m_Server.Send(bin, false);
     }
 
     private void ServerProcessInputs()
